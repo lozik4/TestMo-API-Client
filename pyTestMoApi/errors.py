@@ -16,6 +16,8 @@ class ErrorHandling:
 
     def handler(self):
         if self.status_code in self.status_messages:
-            raise HTTPError(f"{self.status_code} {self.status_messages[self.status_code]}")
+            raise HTTPError(f"\n {self.status_code} {self.status_messages[self.status_code]} \n"
+                            f"More information: https://docs.testmo.com/api/introduction/error-handling")
         if self.status_code >= 300:
-            raise HTTPError(f"Unknown error: {self.status_code}")
+            raise HTTPError(f"\n Unknown error: {self.status_code} \n"
+                            f"More information: https://docs.testmo.com/api/introduction/error-handling")
