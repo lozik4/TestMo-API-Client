@@ -1,6 +1,7 @@
 import os
 
 import requests
+from .errors import ErrorHandling
 
 
 class ApiClient:
@@ -15,7 +16,11 @@ class ApiClient:
         }
 
     def api_get(self, endpoint: str, *args, **kwargs) -> requests.Response:
-        return requests.get(f"{self.BASE_URL}{endpoint}", headers=self.headers, timeout=15, *args, **kwargs)
+        res = requests.get(f"{self.BASE_URL}{endpoint}", headers=self.headers, timeout=15, *args, **kwargs)
+        ErrorHandling(res.status_code).handler()
+        return res
 
     def api_post(self, endpoint: str, *args, **kwargs) -> requests.Response:
-        return requests.post(f"{self.BASE_URL}{endpoint}", headers=self.headers, timeout=15, *args, **kwargs)
+        res = requests.post(f"{self.BASE_URL}{endpoint}", headers=self.headers, timeout=15, *args, **kwargs)
+        ErrorHandling(res.status_code).handler()
+        return res
