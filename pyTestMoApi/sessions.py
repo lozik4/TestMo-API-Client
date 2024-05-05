@@ -1,33 +1,26 @@
 from .api_client import ApiClient
+from .utils import expands_validator
 
 
 class Sessions:
 
     def __init__(self):
         self.client = ApiClient()
+        self.valid_expansions = ["configs", "field_values", "issues",
+                                 "milestones", "states", "statuses",
+                                 "templates", "users"]
 
     def get_session_info(self, session_id: int, expands: str = ""):
         url = f"/sessions/{session_id}?"
-        url += self.__construct_expansion_url(expands)
+        url += expands_validator(expands, self.valid_expansions)
         return self.client.api_get(url).json()
 
     def get_session_by_project(self, project_id: int, **kwargs):
         url = f"/projects/{project_id}/sessions?"
         if kwargs.get("expands"):
-            url += self.__construct_expansion_url(kwargs.pop("expands"))
+            url += expands_validator(kwargs.pop("expands"), self.valid_expansions)
         url += self.validate_and_serialize_parameters(**kwargs)
         return self.client.api_get(url).json()
-
-    @staticmethod
-    def __construct_expansion_url(expands: str) -> str:
-        valid_expansions = ["configs", "field_values", "issues",
-                            "milestones", "states", "statuses",
-                            "templates", "users"]
-        if expands and not all(item in valid_expansions for item in expands.split(",")):
-            raise ValueError(f"expands must be: {', '.join(f"'{i}'" for i in valid_expansions)}")
-        elif expands != "":
-            return f"&expands={expands}"
-        return ""
 
     @staticmethod
     def validate_and_serialize_parameters(**kwargs):

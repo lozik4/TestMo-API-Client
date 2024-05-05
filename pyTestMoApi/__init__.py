@@ -1,6 +1,7 @@
 import os
 from .users import Users
 from .sessions import Sessions
+from .roles import Roles
 
 
 class TestMoClient:
@@ -9,6 +10,7 @@ class TestMoClient:
         self._set_env_variable('TESTMO_INSTANCE', instance)
         self._users = Users()
         self._sessions = Sessions()
+        self._roles = Roles()
 
     @staticmethod
     def _set_env_variable(var_name: str, value: str):
@@ -36,3 +38,10 @@ class TestMoClient:
 
     def get_session_by_project(self, project_id: int, **kwargs):
         return self._sessions.get_session_by_project(project_id, **kwargs)
+
+    # Roles
+    def get_roles(self, page: int = 1, per_page: int = 100, expands: str = ""):
+        return self._roles.get_roles(page, per_page, expands)
+
+    def get_roles_by_id(self, role_id: int, expands: str = ""):
+        return self._roles.get_role_by_id(role_id, expands)
