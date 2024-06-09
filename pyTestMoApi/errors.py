@@ -11,7 +11,7 @@ class ErrorHandling:
             404: "Not Found: Unknown or deleted objects in API requests",
             405: "Method Not Allowed: Using GET instead of POST or vice versa",
             422: "Invalid data: Invalid parameters or data in API requests",
-            429: "Too Many Requests: Rate limit reached (please see below). Check Retry-After"
+            429: "Too Many Requests: Rate limit reached (please see below). Check Retry-After",
         }
 
     def handler(self):

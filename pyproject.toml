@@ -1,0 +1,57 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+indent-width = 4
+preview = true
+
+exclude = [
+    ".env",
+    ".pyetst_cache",
+    ".venv",
+    "__init__.py",
+    "__pycache__",
+    "docker",
+    "env",
+    "venv"
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 18
+
+[tool.ruff.format]
+preview = true
+indent-style = "space"
+line-ending = "auto"
+skip-magic-trailing-comma = false
+docstring-code-line-length = 80
+
+[tool.ruff.lint]
+# https://docs.astral.sh/ruff/rules/
+select = ["E", "F", "C90", "I", "COM", "ISC", "PT", "Q", "ARG", "PLC", "PLE", "A"]
+ignore = ["F403", "F405", "E266", "PT013", "A001"]
+fixable = ["ALL"]
+unfixable = []
+preview = true
+explicit-preview-rules = true
+
+
+[tool.ruff.lint.isort]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+split-on-trailing-comma = true
+lines-between-types = 1
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.pylint]
+max-args = 10
+max-positional-args = 3
+max-statements = 80
+
+
+[tool.ruff.lint.flake8-bandit]
+check-typed-exception = true
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false

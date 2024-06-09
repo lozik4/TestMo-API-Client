@@ -1,5 +1,5 @@
 from .api_client import ApiClient
-from .utils import pagination_validator, expands_validator
+from .utils import expands_validator, pagination_validator
 
 
 class Users:
@@ -26,4 +26,3 @@ class Users:
         url = f"/projects/{project_id}/users?page={page}"
         url += pagination_validator(per_page)
         return self.client.api_get(url).json()
-

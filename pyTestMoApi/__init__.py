@@ -2,6 +2,12 @@ import os
 from .users import Users
 from .sessions import Sessions
 from .roles import Roles
+from .runs import Runs
+from .projects import Projects
+from .milestones import Milestones
+from .groups import Groups
+from .automation_sources import AutomationSources
+from .automation_runs import AutomationRuns
 
 
 class TestMoClient:
@@ -11,6 +17,12 @@ class TestMoClient:
         self._users = Users()
         self._sessions = Sessions()
         self._roles = Roles()
+        self._runs = Runs()
+        self._projects = Projects()
+        self._milestones = Milestones()
+        self._groups = Groups()
+        self._automation_sources = AutomationSources()
+        self._automation_runs = AutomationRuns()
 
     @staticmethod
     def _set_env_variable(var_name: str, value: str):
@@ -45,3 +57,45 @@ class TestMoClient:
 
     def get_roles_by_id(self, role_id: int, expands: str = ""):
         return self._roles.get_role_by_id(role_id, expands)
+
+    # Runs
+    def get_project_runs(self, project_id: int, page: int = 1, per_page: int = 100):
+        return self._runs.get_project_runs(project_id, page, per_page)
+
+    def get_run_info(self, run_id: int, expands: str = ""):
+        return self._runs.get_run_info(run_id, expands)
+
+    # Projects
+    def get_projects(self, page: int = 1, per_page: int = 100):
+        return self._projects.get_projects(page, per_page)
+
+    def get_project_info(self, project_id: int, expands: str = ""):
+        return self._projects.get_project_info(project_id, expands)
+
+    # Milestones
+    def get_project_milestones(self, project_id: int, page: int = 1, per_page: int = 100):
+        return self._milestones.get_project_milestones(project_id, page, per_page)
+
+    def get_milestone_info(self, milestone_id: int, expands: str = ""):
+        return self._milestones.get_milestone_info(milestone_id, expands)
+
+    # Groups
+    def get_groups(self, page: int = 1, per_page: int = 100):
+        return self._groups.get_groups(page, per_page)
+
+    def get_group_info(self, group_id: int, expands: str = ""):
+        return self._groups.get_group_info(group_id, expands)
+
+    # AutomationSources
+    def get_automation_sources(self, project_id: int, page: int = 1, per_page: int = 100):
+        return self._automation_sources.get_automation_sources(project_id, page, per_page)
+
+    def get_automation_source_info(self, source_id: int, expands: str = ""):
+        return self._automation_sources.get_automation_source_info(source_id, expands)
+
+    # AutomationRuns
+    def get_automation_runs(self, project_id: int, page: int = 1, per_page: int = 100):
+        return self._automation_runs.get_automation_runs(project_id, page, per_page)
+
+    def get_automation_run_info(self, run_id: int, expands: str = ""):
+        return self._automation_runs.get_automation_run_info(run_id, expands)

@@ -26,28 +26,28 @@ class Sessions:
     def validate_and_serialize_parameters(**kwargs):
 
         valid_types = {
-            'page': int,
-            'per_page': int,
-            'sort': str,
-            'order': str,
-            'assignee_id': str,
-            'closed_after': str,
-            'closed_before': str,
-            'config_id': str,
-            'created_after': str,
-            'created_before': str,
-            'created_by': str,
-            'is_closed': str,
-            'milestone_id': str,
-            'state_id': str,
-            'tags': str,
-            'template_id': str,
+            "page": int,
+            "per_page": int,
+            "sort": str,
+            "order": str,
+            "assignee_id": str,
+            "closed_after": str,
+            "closed_before": str,
+            "config_id": str,
+            "created_after": str,
+            "created_before": str,
+            "created_by": str,
+            "is_closed": str,
+            "milestone_id": str,
+            "state_id": str,
+            "tags": str,
+            "template_id": str,
         }
 
         valid_values = {
-            'per_page': [15, 25, 50, 100],
-            'sort': ['sessions:created_at', 'sessions:closed_at'],
-            'order': ['asc', 'desc'],
+            "per_page": [15, 25, 50, 100],
+            "sort": ["sessions:created_at", "sessions:closed_at"],
+            "order": ["asc", "desc"],
         }
 
         for parameter, value in kwargs.items():
