@@ -1,4 +1,4 @@
-from .api_client import ApiClient
+from ._utils._api import ApiClient
 from .utils import expands_validator, pagination_validator
 
 
