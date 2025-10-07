@@ -1,5 +1,39 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "TestMoApiClient"
+version = "0.0.1"
+description = "This library is a wrapper for the TestMo REST API"
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [
+  { name = "Serhii Lozytskyi" }
+]
+license = { file = "LICENSE" }
+dependencies = [
+  "requests==2.32.5"
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License"
+]
+
+[project.urls]
+Homepage = "https://github.com/lozik4/TestMo-API-Client"
+Repository = "https://github.com/lozik4/TestMo-API-Client"
+Issues = "https://github.com/lozik4/TestMo-API-Client/issues"
+
+[dependency-groups]
+# Install with: uv sync --group dev
+dev = [
+  "pytest==8.4.2",
+  "ruff==0.13.3"
+]
+
 [tool.ruff]
-target-version = "py312"
+target-version = "py313"
 line-length = 120
 indent-width = 4
 preview = true
