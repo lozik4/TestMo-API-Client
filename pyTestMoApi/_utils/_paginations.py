@@ -12,8 +12,8 @@ Pagination.from_response(res) and iterate using ApiClient.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Iterable, List, Optional, Tuple
-from urllib.parse import urlparse, parse_qsl, urlunparse, urlencode
+from typing import Dict, Iterable, Optional
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 
 def _parse_link_header(link_header: str) -> Dict[str, str]:
@@ -54,17 +54,24 @@ class Pagination:
     """Holds pagination links extracted from a response.
 
     Attributes:
+        page: The current page number if it could be detected from the URL.
         first: URL of the first page if provided.
         prev: URL of the previous page if provided.
         next: URL of the next page if provided.
         last: URL of the last page if provided.
         per_page: The per_page value if it could be detected from the URL.
     """
+    page: int = 1
     first: Optional[str] = None
     prev: Optional[str] = None
     next: Optional[str] = None
     last: Optional[str] = None
-    per_page: Optional[int] = None
+    per_page: int = 100
+
+    def __post_init__(self):
+        """Validate per_page value after initialization."""
+        if self.per_page is not None and self.per_page not in [15, 25, 50, 100]:
+            raise ValueError(f"per_page must be one of: 15, 25, 50, 100. Got: {self.per_page}")
 
     @classmethod
     def from_response(cls, response) -> "Pagination":
@@ -72,26 +79,40 @@ class Pagination:
         link_header = response.headers.get("Link", "")
         links = _parse_link_header(link_header)
         # Detect per_page from any link
-        per_page = None
+        per_page, page = None, None
         for url in links.values():
             parsed = urlparse(url)
             q = dict(parse_qsl(parsed.query, keep_blank_values=True))
             if "per_page" in q:
                 try:
                     per_page = int(q["per_page"])  # type: ignore[assignment]
+                    page = int(q["page"])
                 except ValueError:
                     pass
                 break
+
         return cls(
             first=links.get("first"),
             prev=links.get("prev"),
             next=links.get("next"),
             last=links.get("last"),
             per_page=per_page,
+            page=page,
         )
 
     def has_next(self) -> bool:
         return self.next is not None
+
+    def set_paginator(self, url: str):
+        if self.page or self.per_page:
+            return _with_query(url, {"page": str(self.page), "per_page": str(self.per_page)})
+        return url
+
+    def set_page(self, url: str) -> str:
+        """Ensure URL has the same page as this Pagination if set."""
+        if self.page is None:
+            return url
+        return _with_query(url, {"page": str(self.page)})
 
     def set_per_page(self, url: str) -> str:
         """Ensure URL has the same per_page as this Pagination if set."""

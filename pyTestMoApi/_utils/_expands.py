@@ -7,14 +7,18 @@ This complements the simple expands_validator already present in utils.py.
 """
 from __future__ import annotations
 
-from typing import Iterable, List, Sequence
+from typing import Iterable, Sequence
 
 
-def build_expands(expands: Sequence[str] | str, allowed: Iterable[str]) -> str:
+def build_expands(expands: Sequence[str] | str,
+                  allowed: Iterable[str],
+                  *,
+                  ampersand: bool = True) -> str:
     """Validate and build the expands query string.
 
     - expands: sequence of expansions or comma-separated string.
     - allowed: iterable with allowed expansion names for the resource.
+    - ampersand: if True, use '&expands=' instead of '?expands='.
 
     Returns a string starting with '&expands=' or an empty string if no expands.
     Raises ValueError if any expansion is not allowed.
@@ -28,7 +32,8 @@ def build_expands(expands: Sequence[str] | str, allowed: Iterable[str]) -> str:
         raise ValueError(f"expands must be: {allowed_list}")
     if not expands:
         return ""
-    return "&expands=" + ",".join(expands)
+
+    return "&expands=" + ",".join(expands) if ampersand else "?expands=" + ",".join(expands)
 
 
 __all__ = ["build_expands"]

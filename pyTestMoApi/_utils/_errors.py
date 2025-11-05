@@ -1,4 +1,4 @@
-from typing import Optional, Any
+from typing import Any, Optional
 
 from requests import Response
 from requests.exceptions import HTTPError
@@ -72,7 +72,7 @@ class ErrorHandling:
             suffix = f" | {extra}" if extra else ""
             raise HTTPError(
                 f"\n {self.status_code} {base_msg}{suffix} \n"
-                f"More information: https://docs.testmo.com/api/introduction/error-handling"
+                f"More information: https://docs.testmo.com/api/introduction/error-handling",
             )
 
         # Undeclared/unexpected errors
@@ -80,5 +80,5 @@ class ErrorHandling:
         suffix = f": {extra}" if extra else ""
         raise HTTPError(
             f"\n Unknown error: {self.status_code}{suffix} \n"
-            f"More information: https://docs.testmo.com/api/introduction/error-handling"
+            f"More information: https://docs.testmo.com/api/introduction/error-handling",
         )
