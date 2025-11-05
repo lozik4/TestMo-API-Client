@@ -8,8 +8,8 @@ ALLOWED_EXPANDS = ["groups", "roles", "users"]
 
 class Users:
 
-    def __init__(self):
-        self.__client = ApiClient()
+    def __init__(self, api_client: ApiClient):
+        self.__client = api_client
 
     def get_current_user(self):
         """

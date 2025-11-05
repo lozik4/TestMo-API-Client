@@ -8,8 +8,8 @@ ALLOWED_EXPANDS = ["users"]
 
 #
 class Projects:
-    def __init__(self):
-        self.__client = ApiClient()
+    def __init__(self, api_client: ApiClient):
+        self.__client = api_client
 
     def get_projects(self,
                      page: int = 1,
@@ -75,8 +75,4 @@ class Projects:
         """
         url = f"/projects/{project_id}" + build_expands(expands, ALLOWED_EXPANDS, ampersand=False)
         return self.__client.get(url).json()
-#
-#     def get_project_info(self, project_id: int, expands: str = ""):
-#         url = f"/projects/{project_id}?"
-#         # url += expands_validator(expands, self.valid_expansions)
-#         return self.client.get(url).json()
+
