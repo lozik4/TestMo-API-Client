@@ -1,8 +1,5 @@
-import os
-from ._modules import Users
-from ._modules import Projects
+from ._modules import Users, Projects, Runs
 from ._utils import ApiClient
-from ._modules import Runs
 
 
 class TestMoClient:
@@ -13,7 +10,18 @@ class TestMoClient:
         users = client.users.get_users()
         projects = client.projects.get_projects()
     """
-    __slots__ = ('_api', '_runs', '_users', '_projects')
+    __slots__ = (
+        "_api",
+        "_runs",
+        "_automation_runs",
+        "_automation_sources",
+        "_users",
+        "_projects",
+        "_groups",
+        "_milestones",
+        "_roles",
+        "_sessions",
+    )
 
     def __init__(self, testmo_token: str = None, instance: str = None):
         """Initialize the Testmo API client.
@@ -25,17 +33,16 @@ class TestMoClient:
         Raises:
             ValueError: If token or instance not provided
         """
-        self._set_env_variable('TESTMO_TOKEN', testmo_token)
-        self._set_env_variable('TESTMO_INSTANCE', instance)
-        self._api = ApiClient()
-        self._runs = Runs(self._api)
+        self._api = ApiClient(testmo_token, instance)
         self._users = Users(self._api)
         self._projects = Projects(self._api)
-
-    @property
-    def runs(self) -> Runs:
-        """Get the Runs API module."""
-        return self._runs
+        self._runs = Runs(self._api)
+        # self._automation_runs = AutomationRuns(self._api)
+        # self._automation_sources = AutomationSources(self._api)
+        # self._groups = Groups(self._api)
+        # self._milestones = Milestones(self._api)
+        # self._roles = Roles(self._api)
+        # self._sessions = Sessions(self._api)
 
     @property
     def users(self) -> Users:
@@ -47,9 +54,7 @@ class TestMoClient:
         """Get the Projects API module."""
         return self._projects
 
-    @staticmethod
-    def _set_env_variable(var_name: str, value: str) -> None:
-        if value:
-            os.environ[var_name] = value
-        if not os.getenv(var_name):
-            raise ValueError(f"{var_name} is not set in environment variables")
+    @property
+    def runs(self) -> Runs:
+        """Get the Runs API module."""
+        return self._runs
