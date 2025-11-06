@@ -1,15 +1,12 @@
 from typing import Literal, Sequence
 
-from .._utils import ApiClient, Pagination, build_expands
+from .._utils import Pagination, build_expands, BoundApi
 
 Expands = Literal["groups", "roles", "users"]
 ALLOWED_EXPANDS = ["groups", "roles", "users"]
 
 
-class Users:
-
-    def __init__(self, api_client: ApiClient):
-        self.__client = api_client
+class Users(BoundApi):
 
     def get_current_user(self):
         """
@@ -33,7 +30,7 @@ class Users:
             "time_format": null
         }
         """
-        return self.__client.get("/user").json()
+        return self._api.get("/user").json()
 
     def get_users(self, page: int = 1, per_page: int = 100, expands: Sequence[Expands] | Expands = "") -> dict:
         """
@@ -59,7 +56,7 @@ class Users:
         GET /api/v1/users?expands=groups,roles
         """
         url = Pagination(page=page, per_page=per_page).set_paginator("/users") + build_expands(expands, ALLOWED_EXPANDS)
-        return self.__client.get(url).json()
+        return self._api.get(url).json()
 
     def get_users_by_id(self, user_id: int, expands: Sequence[Expands] | Expands = ""):
         """
@@ -80,7 +77,7 @@ class Users:
         GET /api/v1/users/1?expands=groups,roles
         """
         url = f"/users/{user_id}" + build_expands(expands, ALLOWED_EXPANDS, ampersand=False)
-        return self.__client.get(url).json()
+        return self._api.get(url).json()
 
     def get_users_by_project_id(self, project_id: int, page: int = 1, per_page: int = 100):
         """
@@ -119,5 +116,4 @@ class Users:
         }
         """
         url = Pagination(page=page, per_page=per_page).set_paginator(f"/projects/{project_id}/users")
-        print(url)
-        return self.__client.get(url).json()
+        return self._api.get(url).json()

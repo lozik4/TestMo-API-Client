@@ -1,5 +1,5 @@
 from ._modules import Users, Projects, Runs
-from ._utils import ApiClient
+from ._utils import ApiClient, BoundApi
 
 
 class TestMoClient:
@@ -11,7 +11,7 @@ class TestMoClient:
         projects = client.projects.get_projects()
     """
     __slots__ = (
-        "_api",
+        "_client",
         "_runs",
         "_automation_runs",
         "_automation_sources",
@@ -33,10 +33,10 @@ class TestMoClient:
         Raises:
             ValueError: If token or instance not provided
         """
-        self._api = ApiClient(testmo_token, instance)
-        self._users = Users(self._api)
-        self._projects = Projects(self._api)
-        self._runs = Runs(self._api)
+        self._client = ApiClient(testmo_token, instance)
+        self._users = Users(self._client)
+        self._projects = Projects(self._client)
+        self._runs = Runs(self._client)
 
     @property
     def users(self) -> Users:

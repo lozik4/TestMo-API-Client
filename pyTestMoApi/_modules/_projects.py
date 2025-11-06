@@ -1,15 +1,12 @@
 from typing import Literal
 
-from .._utils import ApiClient, Pagination, build_expands
+from .._utils import Pagination, build_expands, BoundApi
 
 Expands = Literal["users"]
 ALLOWED_EXPANDS = ["users"]
 
 
-#
-class Projects:
-    def __init__(self, api_client: ApiClient):
-        self.__client = api_client
+class Projects(BoundApi):
 
     def get_projects(self,
                      page: int = 1,
@@ -54,7 +51,7 @@ class Projects:
         url = Pagination(page=page, per_page=per_page).set_paginator("/projects") + build_expands(expands,
                                                                                                   ALLOWED_EXPANDS)
 
-        return self.__client.get(url, params={"order": order, "is_completed": is_completed}).json()
+        return self._api.get(url, params={"order": order, "is_completed": is_completed}).json()
 
     def get_project_by_id(self, project_id: int, expands: Expands = ""):
         """
@@ -74,5 +71,4 @@ class Projects:
 
         """
         url = f"/projects/{project_id}" + build_expands(expands, ALLOWED_EXPANDS, ampersand=False)
-        return self.__client.get(url).json()
-
+        return self._api.get(url).json()
