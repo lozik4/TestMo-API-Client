@@ -37,12 +37,6 @@ class TestMoClient:
         self._users = Users(self._api)
         self._projects = Projects(self._api)
         self._runs = Runs(self._api)
-        # self._automation_runs = AutomationRuns(self._api)
-        # self._automation_sources = AutomationSources(self._api)
-        # self._groups = Groups(self._api)
-        # self._milestones = Milestones(self._api)
-        # self._roles = Roles(self._api)
-        # self._sessions = Sessions(self._api)
 
     @property
     def users(self) -> Users:
