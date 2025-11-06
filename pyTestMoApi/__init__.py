@@ -1,5 +1,5 @@
-from ._modules import Users, Projects, Runs
-from ._utils import ApiClient, BoundApi
+from ._modules import Users, Projects, Runs, Groups
+from ._utils import ApiClient
 
 
 class TestMoClient:
@@ -37,6 +37,7 @@ class TestMoClient:
         self._users = Users(self._client)
         self._projects = Projects(self._client)
         self._runs = Runs(self._client)
+        self._groups = Groups(self._client)
 
     @property
     def users(self) -> Users:
@@ -52,3 +53,8 @@ class TestMoClient:
     def runs(self) -> Runs:
         """Get the Runs API module."""
         return self._runs
+
+    @property
+    def groups(self) -> Groups:
+        """Get the Groups API module."""
+        return self._groups
