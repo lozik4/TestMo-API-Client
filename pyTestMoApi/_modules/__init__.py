@@ -7,6 +7,7 @@ from ._automation_sources import AutomationSource
 from ._milestones import Milestones
 from ._results import Results
 from ._roles import Roles
+from ._sessions import Sessions
 
 
 __all__ = [
@@ -19,4 +20,5 @@ __all__ = [
     "Milestones",
     "Results",
     "Roles",
+    "Sessions",
 ]

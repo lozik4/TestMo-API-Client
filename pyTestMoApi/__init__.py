@@ -7,7 +7,8 @@ from ._modules import (
     Results,
     Roles,
     AutomationSource,
-    AutomationRuns
+    AutomationRuns,
+    Sessions
 )
 from ._utils import ApiClient
 
@@ -33,6 +34,7 @@ class TestMoClient:
         "_sessions",
         "_results",
         "_roles",
+        "_sessions",
     )
 
     def __init__(self, testmo_token: str = None, instance: str = None):
@@ -55,6 +57,7 @@ class TestMoClient:
         self._milestones = Milestones(self._client)
         self._automation_runs = AutomationRuns(self._client)
         self._automation_sources = AutomationSource(self._client)
+        self._sessions = Sessions(self._client)
 
     @property
     def users(self) -> Users:
@@ -100,3 +103,8 @@ class TestMoClient:
     def automation_sources(self) -> AutomationSource:
         """Get the AutomationSource API module."""
         return self._automation_sources
+
+    @property
+    def sessions(self) -> Sessions:
+        """Get the Sessions API module."""
+        return self._sessions
