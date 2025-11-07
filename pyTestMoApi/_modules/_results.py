@@ -1,4 +1,4 @@
-from typing import Literal, Sequence
+from typing import Literal
 
 from .._utils import BoolFilter, BoundApi, DateIso, Order, Pagination, build_date, build_expands, build_filters
 
@@ -66,7 +66,7 @@ class Results(BoundApi):
             "created_by": created_by,
             "assignee_id": assignee_id,
             "status_id": status_id,
-            "get_latest_result": get_latest_result
+            "get_latest_result": get_latest_result,
         }
         filters = build_filters(params)
         return self._api.get(url + filters).json()

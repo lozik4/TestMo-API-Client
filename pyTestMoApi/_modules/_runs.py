@@ -74,7 +74,7 @@ class Runs(BoundApi):
         """
         url = Pagination(
             page=page,
-            per_page=per_page
+            per_page=per_page,
         ).set_paginator(f"/projects/{project_id}/runs") + build_expands(expands, ALLOWED_EXPANDS)
         params = {
             "order": order,
