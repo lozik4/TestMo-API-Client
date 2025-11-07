@@ -30,10 +30,24 @@ class ApiClient:
         ErrorHandling(res.status_code).handler()
         return res
 
-    def post(self, endpoint: str, *args, **kwargs) -> requests.Response:
-        res = requests.post(f"{self.BASE_URL}{endpoint}", headers=self.headers, timeout=15, *args, **kwargs)
+    def post(self, endpoint: str, json: dict, *args, **kwargs) -> requests.Response:
+        res = requests.post(
+            f"{self.BASE_URL}{endpoint}",
+            json=json,
+            headers=self.headers,
+            timeout=15,
+            *args,
+            **kwargs
+        )
         ErrorHandling(res.status_code).handler()
         return res
 
+    def patch(self, endpoint: str, json: dict, **kwargs) -> requests.Response:
+        res = requests.patch(f"{self.BASE_URL}{endpoint}", json=json, headers=self.headers, timeout=15, **kwargs)
+        ErrorHandling(res.status_code).handler()
+        return res
 
-
+    def delete(self, endpoint: str, **kwargs) -> requests.Response:
+        res = requests.delete(f"{self.BASE_URL}{endpoint}", headers=self.headers, timeout=15, **kwargs)
+        ErrorHandling(res.status_code).handler()
+        return res
