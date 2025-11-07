@@ -10,7 +10,8 @@ from ._modules import (
     AutomationRuns,
     Sessions,
     Cases,
-    Folders
+    Folders,
+    Attachments
 )
 from ._utils import ApiClient
 
@@ -36,7 +37,8 @@ class TestMoClient:
         "_sessions",
         "_results",
         "_cases",
-        "_folders"
+        "_folders",
+        "_attachments"
     )
 
     def __init__(self, testmo_token: str = None, instance: str = None):
@@ -62,6 +64,7 @@ class TestMoClient:
         self._sessions = Sessions(self._client)
         self._cases = Cases(self._client)
         self._folders = Folders(self._client)
+        self._attachments = Attachments(self._client)
 
     @property
     def users(self) -> Users:
@@ -122,3 +125,8 @@ class TestMoClient:
     def folders(self) -> Folders:
         """Get the Folders API module."""
         return self._folders
+
+    @property
+    def attachments(self) -> Attachments:
+        """Get the Attachments API module."""
+        return self._attachments

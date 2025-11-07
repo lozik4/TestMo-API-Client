@@ -10,6 +10,7 @@ from ._roles import Roles
 from ._sessions import Sessions
 from ._cases import Cases
 from ._folders import Folders
+from ._attachments import Attachments
 
 
 __all__ = [
@@ -25,4 +26,5 @@ __all__ = [
     "Sessions",
     "Cases",
     "Folders",
+    "Attachments",
 ]
