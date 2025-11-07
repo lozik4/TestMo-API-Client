@@ -1,101 +1,132 @@
-import os
-from .users import Users
-from .sessions import Sessions
-from .roles import Roles
-from .runs import Runs
-from .projects import Projects
-from .milestones import Milestones
-from .groups import Groups
-from .automation_sources import AutomationSources
-from .automation_runs import AutomationRuns
+from ._modules import (
+    Users,
+    Projects,
+    Runs,
+    Groups,
+    Milestones,
+    Results,
+    Roles,
+    AutomationSource,
+    AutomationRuns,
+    Sessions,
+    Cases,
+    Folders,
+    Attachments
+)
+from ._utils import ApiClient
 
 
 class TestMoClient:
+    """Testmo API client.
+
+    Example:
+        client = TestMoClient("token", "instance")
+        users = client.users.get_users()
+        projects = client.projects.get_projects()
+    """
+    __slots__ = (
+        "_client",
+        "_runs",
+        "_automation_runs",
+        "_automation_sources",
+        "_users",
+        "_projects",
+        "_groups",
+        "_milestones",
+        "_roles",
+        "_sessions",
+        "_results",
+        "_cases",
+        "_folders",
+        "_attachments"
+    )
+
     def __init__(self, testmo_token: str = None, instance: str = None):
-        self._set_env_variable('TESTMO_TOKEN', testmo_token)
-        self._set_env_variable('TESTMO_INSTANCE', instance)
-        self._users = Users()
-        self._sessions = Sessions()
-        self._roles = Roles()
-        self._runs = Runs()
-        self._projects = Projects()
-        self._milestones = Milestones()
-        self._groups = Groups()
-        self._automation_sources = AutomationSources()
-        self._automation_runs = AutomationRuns()
+        """Initialize the Testmo API client.
 
-    @staticmethod
-    def _set_env_variable(var_name: str, value: str):
-        if value:
-            os.environ[var_name] = value
-        if not os.getenv(var_name):
-            raise ValueError(f"{var_name} is not set in environment variables")
+        Args:
+            testmo_token: API token (or set TESTMO_TOKEN env var)
+            instance: Instance name (or set TESTMO_INSTANCE env var)
 
-    # Users
-    def get_current_user(self):
-        return self._users.get_current_user()
+        Raises:
+            ValueError: If token or instance not provided
+        """
+        self._client = ApiClient(testmo_token, instance)
+        self._users = Users(self._client)
+        self._roles = Roles(self._client)
+        self._projects = Projects(self._client)
+        self._runs = Runs(self._client)
+        self._results = Results(self._client)
+        self._groups = Groups(self._client)
+        self._milestones = Milestones(self._client)
+        self._automation_runs = AutomationRuns(self._client)
+        self._automation_sources = AutomationSource(self._client)
+        self._sessions = Sessions(self._client)
+        self._cases = Cases(self._client)
+        self._folders = Folders(self._client)
+        self._attachments = Attachments(self._client)
 
-    def get_users(self, page: int = 1, per_page: int = 100, expands: str = ""):
-        return self._users.get_users(page, per_page, expands)
+    @property
+    def users(self) -> Users:
+        """Get the Users API module."""
+        return self._users
 
-    def get_users_by_id(self, user_id: int, expands: str = ""):
-        return self._users.get_users_by_id(user_id, expands)
+    @property
+    def roles(self) -> Roles:
+        """Get the Roles API module."""
+        return self._roles
 
-    def get_users_by_project_id(self, project_id: int, page: int = 1, per_page: int = 100):
-        return self._users.get_users_by_project_id(project_id, page, per_page)
+    @property
+    def projects(self) -> Projects:
+        """Get the Projects API module."""
+        return self._projects
 
-    # Sessions
-    def get_session_info(self, session_id: int, expands: str = ""):
-        return self._sessions.get_session_info(session_id, expands)
+    @property
+    def runs(self) -> Runs:
+        """Get the Runs API module."""
+        return self._runs
 
-    def get_session_by_project(self, project_id: int, **kwargs):
-        return self._sessions.get_session_by_project(project_id, **kwargs)
+    @property
+    def results(self) -> Results:
+        """Get the Results API module."""
+        return self._results
 
-    # Roles
-    def get_roles(self, page: int = 1, per_page: int = 100, expands: str = ""):
-        return self._roles.get_roles(page, per_page, expands)
+    @property
+    def groups(self) -> Groups:
+        """Get the Groups API module."""
+        return self._groups
 
-    def get_roles_by_id(self, role_id: int, expands: str = ""):
-        return self._roles.get_role_by_id(role_id, expands)
+    @property
+    def milestones(self) -> Milestones:
+        """Get the Milestones API module."""
+        return self._milestones
 
-    # Runs
-    def get_project_runs(self, project_id: int, page: int = 1, per_page: int = 100):
-        return self._runs.get_project_runs(project_id, page, per_page)
+    @property
+    def automation_runs(self) -> AutomationRuns:
+        """Get the AutomationRuns API module."""
+        return self._automation_runs
 
-    def get_run_info(self, run_id: int, expands: str = ""):
-        return self._runs.get_run_info(run_id, expands)
+    @property
+    def automation_sources(self) -> AutomationSource:
+        """Get the AutomationSource API module."""
+        return self._automation_sources
 
-    # Projects
-    def get_projects(self, page: int = 1, per_page: int = 100):
-        return self._projects.get_projects(page, per_page)
+    @property
+    def sessions(self) -> Sessions:
+        """Get the Sessions API module."""
+        return self._sessions
 
-    def get_project_info(self, project_id: int, expands: str = ""):
-        return self._projects.get_project_info(project_id, expands)
+    @property
+    def cases(self) -> Cases:
+        """Get the Cases API module."""
+        return self._cases
 
-    # Milestones
-    def get_project_milestones(self, project_id: int, page: int = 1, per_page: int = 100):
-        return self._milestones.get_project_milestones(project_id, page, per_page)
+    @property
+    def folders(self) -> Folders:
+        """Get the Folders API module."""
+        return self._folders
 
-    def get_milestone_info(self, milestone_id: int, expands: str = ""):
-        return self._milestones.get_milestone_info(milestone_id, expands)
-
-    # Groups
-    def get_groups(self, page: int = 1, per_page: int = 100):
-        return self._groups.get_groups(page, per_page)
-
-    def get_group_info(self, group_id: int, expands: str = ""):
-        return self._groups.get_group_info(group_id, expands)
-
-    # AutomationSources
-    def get_automation_sources(self, project_id: int, page: int = 1, per_page: int = 100):
-        return self._automation_sources.get_automation_sources(project_id, page, per_page)
-
-    def get_automation_source_info(self, source_id: int, expands: str = ""):
-        return self._automation_sources.get_automation_source_info(source_id, expands)
-
-    # AutomationRuns
-    def get_automation_runs(self, project_id: int, page: int = 1, per_page: int = 100):
-        return self._automation_runs.get_automation_runs(project_id, page, per_page)
-
-    def get_automation_run_info(self, run_id: int, expands: str = ""):
-        return self._automation_runs.get_automation_run_info(run_id, expands)
+    @property
+    def attachments(self) -> Attachments:
+        """Get the Attachments API module."""
+        return self._attachments
