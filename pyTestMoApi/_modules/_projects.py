@@ -1,6 +1,6 @@
 from typing import Literal
 
-from .._utils import Pagination, build_expands, BoundApi
+from .._utils import BoolFilter, BoundApi, Order, Pagination, build_expands
 
 Expands = Literal["users"]
 ALLOWED_EXPANDS = ["users"]
@@ -13,8 +13,8 @@ class Projects(BoundApi):
                      per_page: int = 100,
                      expands: Expands = "",
                      *,
-                     order: Literal["asc", "desc"] = "desc",
-                     is_completed: Literal[0, 1, None] = None,
+                     order: Order = "desc",
+                     is_completed: BoolFilter = None,
                      ):
         """
         Returns all projects (a user has access to).

@@ -45,6 +45,7 @@ exclude = [
     ".venv",
     "__init__.py",
     "__pycache__",
+    "tests",
     "docker",
     "env",
     "venv"

@@ -1,6 +1,6 @@
-from typing import Literal, Sequence
+from typing import Literal
 
-from .._utils import Pagination, build_expands, BoundApi
+from .._utils import BoundApi, Pagination, build_expands
 
 Expands = Literal["users"]
 ALLOWED_EXPANDS = ["users"]
