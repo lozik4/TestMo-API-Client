@@ -1,4 +1,4 @@
-from ._modules import Users, Projects, Runs, Groups, Milestones
+from ._modules import Users, Projects, Runs, Groups, Milestones, Results
 from ._utils import ApiClient
 
 
@@ -21,6 +21,7 @@ class TestMoClient:
         "_milestones",
         "_roles",
         "_sessions",
+        "_results",
     )
 
     def __init__(self, testmo_token: str = None, instance: str = None):
@@ -37,6 +38,7 @@ class TestMoClient:
         self._users = Users(self._client)
         self._projects = Projects(self._client)
         self._runs = Runs(self._client)
+        self._results = Results(self._client)
         self._groups = Groups(self._client)
         self._milestones = Milestones(self._client)
 
@@ -54,6 +56,11 @@ class TestMoClient:
     def runs(self) -> Runs:
         """Get the Runs API module."""
         return self._runs
+
+    @property
+    def results(self) -> Results:
+        """Get the Results API module."""
+        return self._results
 
     @property
     def groups(self) -> Groups:

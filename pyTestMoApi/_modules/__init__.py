@@ -4,6 +4,7 @@ from ._runs import Runs
 from ._groups import Groups
 from ._automation_runs import AutomationRuns
 from ._milestones import Milestones
+from ._results import Results
 
 
 __all__ = [
@@ -12,5 +13,6 @@ __all__ = [
     "Runs",
     "AutomationRuns",
     "Groups",
-    "Milestones"
+    "Milestones",
+    "Results",
 ]
