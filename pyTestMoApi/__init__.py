@@ -33,8 +33,6 @@ class TestMoClient:
         "_roles",
         "_sessions",
         "_results",
-        "_roles",
-        "_sessions",
     )
 
     def __init__(self, testmo_token: str = None, instance: str = None):
