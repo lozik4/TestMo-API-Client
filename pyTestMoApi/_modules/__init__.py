@@ -8,6 +8,7 @@ from ._milestones import Milestones
 from ._results import Results
 from ._roles import Roles
 from ._sessions import Sessions
+from ._cases import Cases
 
 
 __all__ = [
@@ -21,4 +22,5 @@ __all__ = [
     "Results",
     "Roles",
     "Sessions",
+    "Cases",
 ]
