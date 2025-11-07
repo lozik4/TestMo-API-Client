@@ -1,4 +1,14 @@
-from ._modules import Users, Projects, Runs, Groups, Milestones, Results, Roles
+from ._modules import (
+    Users,
+    Projects,
+    Runs,
+    Groups,
+    Milestones,
+    Results,
+    Roles,
+    AutomationSource,
+    AutomationRuns
+)
 from ._utils import ApiClient
 
 
@@ -43,6 +53,8 @@ class TestMoClient:
         self._results = Results(self._client)
         self._groups = Groups(self._client)
         self._milestones = Milestones(self._client)
+        self._automation_runs = AutomationRuns(self._client)
+        self._automation_sources = AutomationSource(self._client)
 
     @property
     def users(self) -> Users:
@@ -78,3 +90,13 @@ class TestMoClient:
     def milestones(self) -> Milestones:
         """Get the Milestones API module."""
         return self._milestones
+
+    @property
+    def automation_runs(self) -> AutomationRuns:
+        """Get the AutomationRuns API module."""
+        return self._automation_runs
+
+    @property
+    def automation_sources(self) -> AutomationSource:
+        """Get the AutomationSource API module."""
+        return self._automation_sources
