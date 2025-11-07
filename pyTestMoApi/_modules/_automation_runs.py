@@ -1,6 +1,6 @@
 from typing import Literal, Sequence
 
-from .._utils import BoundApi, Pagination, build_expands, Order, DateIso, build_date, build_filters
+from .._utils import BoundApi, DateIso, Order, Pagination, build_date, build_expands, build_filters
 
 Expands = Literal["automation_sources", "configs", "milestones", "statuses", "users"]
 ALLOWED_EXPANDS = ["automation_sources", "configs", "milestones", "statuses", "users"]
@@ -23,7 +23,7 @@ class AutomationRuns(BoundApi):
             milestone_id: str = "",
             source_id: str = "",
             status: str = "",
-            tags: str = ""
+            tags: str = "",
     ) -> dict:
         """ Get automation runs by project id.
 
@@ -81,7 +81,7 @@ class AutomationRuns(BoundApi):
             "milestone_id": milestone_id,
             "source_id": source_id,
             "status": status,
-            "tags": tags
+            "tags": tags,
         }
 
         filters = build_filters(params)
