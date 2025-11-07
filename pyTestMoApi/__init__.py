@@ -9,7 +9,8 @@ from ._modules import (
     AutomationSource,
     AutomationRuns,
     Sessions,
-    Cases
+    Cases,
+    Folders
 )
 from ._utils import ApiClient
 
@@ -34,7 +35,8 @@ class TestMoClient:
         "_roles",
         "_sessions",
         "_results",
-        "_cases"
+        "_cases",
+        "_folders"
     )
 
     def __init__(self, testmo_token: str = None, instance: str = None):
@@ -59,6 +61,7 @@ class TestMoClient:
         self._automation_sources = AutomationSource(self._client)
         self._sessions = Sessions(self._client)
         self._cases = Cases(self._client)
+        self._folders = Folders(self._client)
 
     @property
     def users(self) -> Users:
@@ -114,3 +117,8 @@ class TestMoClient:
     def cases(self) -> Cases:
         """Get the Cases API module."""
         return self._cases
+
+    @property
+    def folders(self) -> Folders:
+        """Get the Folders API module."""
+        return self._folders
