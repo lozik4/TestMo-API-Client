@@ -1,11 +1,11 @@
 [build-system]
 requires = ["setuptools>=61"]
-requires-python = ">=3.13.5, <3.14"
+requires-python = ">=3.13"
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "TestMoApiClient"
-version = "0.0.1"
+version = "0.1.1"
 description = "This library is a wrapper for the TestMo REST API"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -29,8 +29,8 @@ Issues = "https://github.com/lozik4/TestMo-API-Client/issues"
 [dependency-groups]
 # Install with: uv sync --group dev
 dev = [
-  "pytest==8.4.2",
-  "ruff==0.13.3"
+  "pytest==9.0.1",
+  "ruff==0.14.7"
 ]
 
 [tool.ruff]
