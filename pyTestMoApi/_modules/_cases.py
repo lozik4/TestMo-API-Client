@@ -20,8 +20,13 @@ class Cases(BoundApi):
             created_by: str = "",
             folder_id: int = None,
             template_id: int = None,
+            state_id: str = "",
+            status_id: str = "",
             created_after: DateIso = "",
             created_before: DateIso = "",
+            has_automation: bool = None,
+            has_automation_status: bool = None,
+
     ) -> dict:
         """Get project cases
 
@@ -41,6 +46,11 @@ class Cases(BoundApi):
         :param template_id: Limit results to a single specified template ID.
         :param created_after: Limit result to cases created after (in ISO8601 format and UTC time zone).
         :param created_before: Limit result to cases created before (in ISO8601 format and UTC time zone).
+        :param has_automation: Limit result to cases with automation (true, 1) or without automation (false, 0).
+        :param has_automation_status: Limit result to cases with automation status (true, 1)
+        or without automation status (false, 0).
+        :param state_id: Comma-separated list of workflow states to filter by.
+        :param status_id: Comma-separated list of statuses to filter by.
         :return: Returns a list of cases from the specified project.
 
         Examples:
@@ -74,6 +84,10 @@ class Cases(BoundApi):
             "template_id": template_id,
             "created_after": build_date(created_after),
             "created_before": build_date(created_before),
+            "has_automation": has_automation,
+            "has_automation_status": has_automation_status,
+            "state_id": state_id,
+            "status_id": status_id,
         }
         filters = build_filters(params)
         return self._api.get(url + filters).json()
