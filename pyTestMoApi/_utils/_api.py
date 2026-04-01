@@ -37,7 +37,7 @@ class ApiClient:
             headers=self.headers,
             timeout=15,
             *args,
-            **kwargs
+            **kwargs,
         )
         ErrorHandling(res.status_code).handler()
         return res
