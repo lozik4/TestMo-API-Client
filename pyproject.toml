@@ -14,8 +14,7 @@ authors = [
 ]
 license = { file = "LICENSE" }
 dependencies = [
-    "requests>=2.33.0",
-    "urllib3>=2.6.3"
+    "requests>=2.34.2",
 ]
 classifiers = [
   "Programming Language :: Python :: 3",
@@ -30,12 +29,11 @@ Issues = "https://github.com/lozik4/TestMo-API-Client/issues"
 [dependency-groups]
 # Install with: uv sync --group dev
 dev = [
-  "pytest==9.0.1",
-  "ruff==0.15.8"
+  "pytest==9.1.1",
+  "ruff==0.15.22"
 ]
 
 [tool.ruff]
-target-version = "py313"
 line-length = 120
 indent-width = 4
 preview = true
