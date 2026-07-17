@@ -1,5 +1,6 @@
 from ._modules import (
     Attachments,
+    AutomationCases,
     AutomationRuns,
     AutomationSource,
     Cases,
@@ -24,11 +25,13 @@ class TestMoClient:
         users = client.users.get_users()
         projects = client.projects.get_projects()
     """
+
     __slots__ = (
         "_client",
         "_runs",
         "_automation_runs",
         "_automation_sources",
+        "_automation_cases",
         "_users",
         "_projects",
         "_groups",
@@ -38,7 +41,7 @@ class TestMoClient:
         "_results",
         "_cases",
         "_folders",
-        "_attachments"
+        "_attachments",
     )
 
     def __init__(self, testmo_token: str | None = None, instance: str | None = None):
@@ -61,6 +64,7 @@ class TestMoClient:
         self._milestones = Milestones(self._client)
         self._automation_runs = AutomationRuns(self._client)
         self._automation_sources = AutomationSource(self._client)
+        self._automation_cases = AutomationCases(self._client)
         self._sessions = Sessions(self._client)
         self._cases = Cases(self._client)
         self._folders = Folders(self._client)
@@ -110,6 +114,11 @@ class TestMoClient:
     def automation_sources(self) -> AutomationSource:
         """Get the AutomationSource API module."""
         return self._automation_sources
+
+    @property
+    def automation_cases(self) -> AutomationCases:
+        """Get the AutomationCases API module."""
+        return self._automation_cases
 
     @property
     def sessions(self) -> Sessions:
