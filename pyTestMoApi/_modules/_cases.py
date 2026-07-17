@@ -18,14 +18,14 @@ class Cases(BoundApi):
             order: Order = "desc",
             sort: Literal["repository_cases:created_at", "repository_cases:name"] = "repository_cases:created_at",
             created_by: str = "",
-            folder_id: int = None,
-            template_id: int = None,
+            folder_id: int | None = None,
+            template_id: int | None = None,
             state_id: str = "",
             status_id: str = "",
             created_after: DateIso = "",
             created_before: DateIso = "",
-            has_automation: bool = None,
-            has_automation_status: bool = None,
+            has_automation: bool | None = None,
+            has_automation_status: bool | None = None,
 
     ) -> dict:
         """Get project cases

@@ -38,11 +38,10 @@ def test_datetime_aware_offset_converted_to_utc():
 
 
 def test_naive_datetime_is_treated_as_local_then_converted_to_utc():
-    # Build a naive local time and compute expected using the system local tz
+    # Build a naive local time and compute expected using the system local tz,
+    # respecting DST rules that apply on that specific date (not "now").
     naive = datetime(2025, 11, 6, 8, 0, 0)
-    local_tz = datetime.now().astimezone().tzinfo
-    # Interpret naive as local time
-    local_dt = naive.replace(tzinfo=local_tz)
+    local_dt = naive.astimezone()
     expected_utc = local_dt.astimezone(timezone.utc).replace(microsecond=0)
     out = build_date(naive)
     got = parse_iso_utc(out)

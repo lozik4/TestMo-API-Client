@@ -1,17 +1,17 @@
 from ._modules import (
-    Users,
-    Projects,
-    Runs,
-    Groups,
-    Milestones,
-    Results,
-    Roles,
-    AutomationSource,
+    Attachments,
     AutomationRuns,
-    Sessions,
+    AutomationSource,
     Cases,
     Folders,
-    Attachments
+    Groups,
+    Milestones,
+    Projects,
+    Results,
+    Roles,
+    Runs,
+    Sessions,
+    Users,
 )
 from ._utils import ApiClient
 
@@ -41,7 +41,7 @@ class TestMoClient:
         "_attachments"
     )
 
-    def __init__(self, testmo_token: str = None, instance: str = None):
+    def __init__(self, testmo_token: str | None = None, instance: str | None = None):
         """Initialize the Testmo API client.
 
         Args:

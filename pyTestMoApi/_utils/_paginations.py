@@ -61,12 +61,12 @@ class Pagination:
         last: URL of the last page if provided.
         per_page: The per_page value if it could be detected from the URL.
     """
-    page: int = 1
+    page: Optional[int] = 1
     first: Optional[str] = None
     prev: Optional[str] = None
     next: Optional[str] = None
     last: Optional[str] = None
-    per_page: int = 100
+    per_page: Optional[int] = 100
 
     def __post_init__(self):
         """Validate per_page value after initialization."""

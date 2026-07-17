@@ -10,15 +10,15 @@ description = "This library is a wrapper for the TestMo REST API"
 readme = "README.md"
 requires-python = ">=3.13"
 authors = [
-  { name = "Serhii Lozytskyi" }
+    { name = "Serhii Lozytskyi" }
 ]
 license = { file = "LICENSE" }
 dependencies = [
     "requests>=2.34.2",
 ]
 classifiers = [
-  "Programming Language :: Python :: 3",
-  "License :: OSI Approved :: MIT License"
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License"
 ]
 
 [project.urls]
@@ -29,8 +29,9 @@ Issues = "https://github.com/lozik4/TestMo-API-Client/issues"
 [dependency-groups]
 # Install with: uv sync --group dev
 dev = [
-  "pytest==9.1.1",
-  "ruff==0.15.22"
+    "pytest==9.1.1",
+    "ruff==0.15.22",
+    "ty==0.0.60"
 ]
 
 [tool.ruff]

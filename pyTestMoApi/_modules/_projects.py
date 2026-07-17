@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Sequence
 
 from .._utils import BoolFilter, BoundApi, Order, Pagination, build_expands
 
@@ -11,7 +11,7 @@ class Projects(BoundApi):
     def get_projects(self,
                      page: int = 1,
                      per_page: int = 100,
-                     expands: Expands = "",
+                     expands: Sequence[Expands] | Expands = "",
                      *,
                      order: Order = "desc",
                      is_completed: BoolFilter = None,
@@ -53,7 +53,7 @@ class Projects(BoundApi):
 
         return self._api.get(url, params={"order": order, "is_completed": is_completed}).json()
 
-    def get_project_by_id(self, project_id: int, expands: Expands = ""):
+    def get_project_by_id(self, project_id: int, expands: Sequence[Expands] | Expands = ""):
         """
         Returns a single project (if the user has access to the project).
         References:

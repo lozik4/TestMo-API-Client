@@ -13,7 +13,7 @@ class Folders(BoundApi):
             *,
             order: Order = "desc",
             sort: Literal["display_order", "name"] = "display_order",
-            parent_id: int = None,
+            parent_id: int | None = None,
             name: str = "",
     ) -> dict:
         """Get project folders

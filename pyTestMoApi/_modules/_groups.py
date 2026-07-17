@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Sequence
 
 from .._utils import BoundApi, Pagination, build_expands
 
@@ -8,7 +8,7 @@ ALLOWED_EXPANDS = ["users"]
 
 class Groups(BoundApi):
 
-    def get_groups(self, page: int = 1, per_page: int = 100, expands: Expands = ""):
+    def get_groups(self, page: int = 1, per_page: int = 100, expands: Sequence[Expands] | Expands = ""):
         """
         Returns all groups. Requires site admin access.
         This method uses pagination so you might need to request additional pages to retrieve all groups.
@@ -34,7 +34,7 @@ class Groups(BoundApi):
                                                                                                 ALLOWED_EXPANDS)
         return self._api.get(url).json()
 
-    def get_groups_by_id(self, group_id: int, expands: Expands = ""):
+    def get_groups_by_id(self, group_id: int, expands: Sequence[Expands] | Expands = ""):
         """
         Returns a single group. Requires site admin access.
 

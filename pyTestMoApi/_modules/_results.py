@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Sequence
 
 from .._utils import BoolFilter, BoundApi, DateIso, Order, Pagination, build_date, build_expands, build_filters
 
@@ -13,15 +13,15 @@ class Results(BoundApi):
             run_id: int,
             page: int = 1,
             per_page: int = 100,
-            expands: Expands = "",
+            expands: Sequence[Expands] | Expands = "",
             *,
             sort: Literal["run_results:created_at"] = "run_results:created_at",
             order: Order = "desc",
-            created_after: DateIso = None,
-            created_before: DateIso = None,
+            created_after: DateIso = "",
+            created_before: DateIso = "",
             created_by: str = "",
-            assignee_id: int = None,
-            status_id: int = None,
+            assignee_id: int | None = None,
+            status_id: int | None = None,
             get_latest_result: BoolFilter = None,
     ):
         """

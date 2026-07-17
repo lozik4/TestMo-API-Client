@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from datetime import date as _date
 from datetime import datetime as _dt
 from datetime import time as _time
@@ -5,7 +6,7 @@ from datetime import timezone as _tz
 from urllib.parse import urlencode
 
 
-def build_filters(filters: dict[str, str | int]) -> str:
+def build_filters(filters: Mapping[str, str | int | bool | None]) -> str:
     """Build query string for filters, skipping empty and None values.
 
     - filters: mapping of query parameter names to values (str or int).
