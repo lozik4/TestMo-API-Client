@@ -6,7 +6,6 @@ from ._errors import ErrorHandling
 
 
 class ApiClient:
-
     def __init__(self, token: str | None = None, instance: str | None = None, api_version: str = "v1"):
         self.instance = instance or os.getenv("TESTMO_INSTANCE")
         self.token = token or os.getenv("TESTMO_TOKEN")

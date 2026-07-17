@@ -7,22 +7,21 @@ ALLOWED_EXPANDS = ["issues", "users"]
 
 
 class Results(BoundApi):
-
     def get_run_result(
-            self,
-            run_id: int,
-            page: int = 1,
-            per_page: int = 100,
-            expands: Sequence[Expands] | Expands = "",
-            *,
-            sort: Literal["run_results:created_at"] = "run_results:created_at",
-            order: Order = "desc",
-            created_after: DateIso = "",
-            created_before: DateIso = "",
-            created_by: str = "",
-            assignee_id: int | None = None,
-            status_id: int | None = None,
-            get_latest_result: BoolFilter = None,
+        self,
+        run_id: int,
+        page: int = 1,
+        per_page: int = 100,
+        expands: Sequence[Expands] | Expands = "",
+        *,
+        sort: Literal["run_results:created_at"] = "run_results:created_at",
+        order: Order = "desc",
+        created_after: DateIso = "",
+        created_before: DateIso = "",
+        created_by: str = "",
+        assignee_id: int | None = None,
+        status_id: int | None = None,
+        get_latest_result: BoolFilter = None,
     ):
         """
         Get a run result.

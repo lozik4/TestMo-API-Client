@@ -7,7 +7,6 @@ ALLOWED_EXPANDS = ["users"]
 
 
 class Roles(BoundApi):
-
     def get_roles(self, page: int = 1, per_page: int = 100, expands: Sequence[Expands] | Expands = ""):
         """Get Roles
         Reference:

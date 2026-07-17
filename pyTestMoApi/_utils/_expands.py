@@ -5,15 +5,13 @@ https://docs.testmo.com/api/introduction/pagination-expands
 Provides helpers to validate and build the expands query string for resources.
 This complements the simple expands_validator already present in utils.py.
 """
+
 from __future__ import annotations
 
 from typing import Iterable, Sequence
 
 
-def build_expands(expands: Sequence[str] | str,
-                  allowed: Iterable[str],
-                  *,
-                  ampersand: bool = True) -> str:
+def build_expands(expands: Sequence[str] | str, allowed: Iterable[str], *, ampersand: bool = True) -> str:
     """Validate and build the expands query string.
 
     - expands: sequence of expansions or comma-separated string.

@@ -7,26 +7,24 @@ ALLOWED_EXPANDS = ["automation_links", "comments", "folders", "history", "users"
 
 
 class Cases(BoundApi):
-
     def get_project_cases(
-            self,
-            project_id: int,
-            page: int = 1,
-            per_page: int = 100,
-            expands: Sequence[Expands] | Expands = "",
-            *,
-            order: Order = "desc",
-            sort: Literal["repository_cases:created_at", "repository_cases:name"] = "repository_cases:created_at",
-            created_by: str = "",
-            folder_id: int | None = None,
-            template_id: int | None = None,
-            state_id: str = "",
-            status_id: str = "",
-            created_after: DateIso = "",
-            created_before: DateIso = "",
-            has_automation: bool | None = None,
-            has_automation_status: bool | None = None,
-
+        self,
+        project_id: int,
+        page: int = 1,
+        per_page: int = 100,
+        expands: Sequence[Expands] | Expands = "",
+        *,
+        order: Order = "desc",
+        sort: Literal["repository_cases:created_at", "repository_cases:name"] = "repository_cases:created_at",
+        created_by: str = "",
+        folder_id: int | None = None,
+        template_id: int | None = None,
+        state_id: str = "",
+        status_id: str = "",
+        created_after: DateIso = "",
+        created_before: DateIso = "",
+        has_automation: bool | None = None,
+        has_automation_status: bool | None = None,
     ) -> dict:
         """Get project cases
 

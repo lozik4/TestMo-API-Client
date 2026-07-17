@@ -7,26 +7,25 @@ ALLOWED_EXPANDS = ["configs", "issues", "milestones", "states", "statuses", "use
 
 
 class Runs(BoundApi):
-
     def get_project_runs(
-            self,
-            project_id: int,
-            page: int = 1,
-            per_page: int = 100,
-            expands: Sequence[Expands] | Expands = "",
-            *,
-            order: Order = "desc",
-            sort: Literal["runs:created_at", "runs:closed_at"] = "runs:created_at",
-            closed_after: DateIso = "",
-            closed_before: DateIso = "",
-            config_id: str = "",
-            created_after: DateIso = "",
-            created_before: DateIso = "",
-            created_by: str = "",
-            is_closed: BoolFilter = None,
-            milestone_id: str = "",
-            state_id: str = "",
-            tags: str = "",
+        self,
+        project_id: int,
+        page: int = 1,
+        per_page: int = 100,
+        expands: Sequence[Expands] | Expands = "",
+        *,
+        order: Order = "desc",
+        sort: Literal["runs:created_at", "runs:closed_at"] = "runs:created_at",
+        closed_after: DateIso = "",
+        closed_before: DateIso = "",
+        config_id: str = "",
+        created_after: DateIso = "",
+        created_before: DateIso = "",
+        created_by: str = "",
+        is_closed: BoolFilter = None,
+        milestone_id: str = "",
+        state_id: str = "",
+        tags: str = "",
     ):
         """This method uses pagination so you might need to request additional pages to retrieve all runs
 

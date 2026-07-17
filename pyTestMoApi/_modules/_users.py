@@ -7,7 +7,6 @@ ALLOWED_EXPANDS = ["groups", "roles", "users"]
 
 
 class Users(BoundApi):
-
     def get_current_user(self):
         """
         Returns the current user. A typical use case for this method is to test API access and authentication.

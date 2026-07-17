@@ -50,7 +50,8 @@ exclude = [
     "tests",
     "docker",
     "env",
-    "venv"
+    "venv",
+    "*.md"
 ]
 
 [tool.ruff.lint.mccabe]

@@ -4,17 +4,16 @@ from .._utils import BoundApi, Order, Pagination, build_filters
 
 
 class Folders(BoundApi):
-
     def get_project_folders(
-            self,
-            project_id: int,
-            page: int = 1,
-            per_page: int = 100,
-            *,
-            order: Order = "desc",
-            sort: Literal["display_order", "name"] = "display_order",
-            parent_id: int | None = None,
-            name: str = "",
+        self,
+        project_id: int,
+        page: int = 1,
+        per_page: int = 100,
+        *,
+        order: Order = "desc",
+        sort: Literal["display_order", "name"] = "display_order",
+        parent_id: int | None = None,
+        name: str = "",
     ) -> dict:
         """Get project folders
 

@@ -7,7 +7,6 @@ ALLOWED_EXPANDS = ["users"]
 
 
 class Groups(BoundApi):
-
     def get_groups(self, page: int = 1, per_page: int = 100, expands: Sequence[Expands] | Expands = ""):
         """
         Returns all groups. Requires site admin access.
@@ -30,8 +29,10 @@ class Groups(BoundApi):
             Get groups and include user details
             GET /api/v1/groups?expands=users
         """
-        url = Pagination(page=page, per_page=per_page).set_paginator("/groups") + build_expands(expands,
-                                                                                                ALLOWED_EXPANDS)
+        url = Pagination(page=page, per_page=per_page).set_paginator("/groups") + build_expands(
+            expands,
+            ALLOWED_EXPANDS,
+        )
         return self._api.get(url).json()
 
     def get_groups_by_id(self, group_id: int, expands: Sequence[Expands] | Expands = ""):

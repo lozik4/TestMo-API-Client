@@ -9,6 +9,7 @@ We keep this non-invasive: existing client methods continue to return
 response.json() data. Consumers who need advanced pagination can use
 Pagination.from_response(res) and iterate using ApiClient.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -61,6 +62,7 @@ class Pagination:
         last: URL of the last page if provided.
         per_page: The per_page value if it could be detected from the URL.
     """
+
     page: Optional[int] = 1
     first: Optional[str] = None
     prev: Optional[str] = None

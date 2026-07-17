@@ -7,22 +7,22 @@ ALLOWED_EXPANDS = ["users"]
 
 
 class AutomationSource(BoundApi):
-
     def get_automation_sources(
-            self,
-            project_id: int,
-            page: int = 1,
-            per_page: int = 100,
-            expands: Sequence[Expands] | Expands = "",
-            *,
-            order: Order = "desc",
-            sort: Literal[
-                "automation_sources:created_at",
-                "automation_sources:ran_at",
-                "automation_sources:retired_at"] = "automation_sources:created_at",
-            is_retired: BoolFilter = None,
+        self,
+        project_id: int,
+        page: int = 1,
+        per_page: int = 100,
+        expands: Sequence[Expands] | Expands = "",
+        *,
+        order: Order = "desc",
+        sort: Literal[
+            "automation_sources:created_at",
+            "automation_sources:ran_at",
+            "automation_sources:retired_at",
+        ] = "automation_sources:created_at",
+        is_retired: BoolFilter = None,
     ):
-        """ Get all automation sources for a project.
+        """Get all automation sources for a project.
 
         References:
             https://support.testmo.com/hc/en-us/articles/37974874224141-Automation-Sources#1-get--projects--project-id--automation-sources-
@@ -64,7 +64,7 @@ class AutomationSource(BoundApi):
         return self._api.get(url + filters).json()
 
     def get_automation_source_by_id(self, automation_source_id: int, expands: Sequence[Expands] | Expands = ""):
-        """" Get info about a specific automation source by its ID.
+        """ " Get info about a specific automation source by its ID.
 
         References:
             https://support.testmo.com/hc/en-us/articles/37974874224141-Automation-Sources#2-get--automation-sources--automation-source-id--

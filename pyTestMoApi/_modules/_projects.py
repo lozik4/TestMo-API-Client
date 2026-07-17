@@ -7,15 +7,15 @@ ALLOWED_EXPANDS = ["users"]
 
 
 class Projects(BoundApi):
-
-    def get_projects(self,
-                     page: int = 1,
-                     per_page: int = 100,
-                     expands: Sequence[Expands] | Expands = "",
-                     *,
-                     order: Order = "desc",
-                     is_completed: BoolFilter = None,
-                     ):
+    def get_projects(
+        self,
+        page: int = 1,
+        per_page: int = 100,
+        expands: Sequence[Expands] | Expands = "",
+        *,
+        order: Order = "desc",
+        is_completed: BoolFilter = None,
+    ):
         """
         Returns all projects (a user has access to).
         This method uses pagination so you might need to request additional pages to retrieve all projects.
@@ -48,8 +48,10 @@ class Projects(BoundApi):
             GET /api/v1/projects?expands=users
         """
 
-        url = Pagination(page=page, per_page=per_page).set_paginator("/projects") + build_expands(expands,
-                                                                                                  ALLOWED_EXPANDS)
+        url = Pagination(page=page, per_page=per_page).set_paginator("/projects") + build_expands(
+            expands,
+            ALLOWED_EXPANDS,
+        )
 
         return self._api.get(url, params={"order": order, "is_completed": is_completed}).json()
 

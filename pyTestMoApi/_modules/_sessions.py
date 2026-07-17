@@ -7,30 +7,29 @@ ALLOWED_EXPANDS = ["configs", "field_values", "issues", "milestones", "states", 
 
 
 class Sessions(BoundApi):
-
     def get_project_sessions(
-            self,
-            project_id: int,
-            page: int = 1,
-            per_page: int = 100,
-            expands: Sequence[Expands] | Expands = "",
-            *,
-            order: Order = "desc",
-            sort: Literal["sessions:created_at", "sessions:closed_at"] = "sessions:created_at",
-            assignee_id: str = "",
-            closed_after: DateIso = "",
-            closed_before: DateIso = "",
-            config_id: str = "",
-            created_after: DateIso = "",
-            created_before: DateIso = "",
-            created_by: str = "",
-            is_closed: BoolFilter = None,
-            milestone_id: str = "",
-            state_id: str = "",
-            tags: str = "",
-            template_id: str = "",
+        self,
+        project_id: int,
+        page: int = 1,
+        per_page: int = 100,
+        expands: Sequence[Expands] | Expands = "",
+        *,
+        order: Order = "desc",
+        sort: Literal["sessions:created_at", "sessions:closed_at"] = "sessions:created_at",
+        assignee_id: str = "",
+        closed_after: DateIso = "",
+        closed_before: DateIso = "",
+        config_id: str = "",
+        created_after: DateIso = "",
+        created_before: DateIso = "",
+        created_by: str = "",
+        is_closed: BoolFilter = None,
+        milestone_id: str = "",
+        state_id: str = "",
+        tags: str = "",
+        template_id: str = "",
     ) -> dict:
-        """ Get sessions for a project.
+        """Get sessions for a project.
 
         References:
             https://support.testmo.com/hc/en-us/articles/38159977518989-Sessions#1-get--projects--project-id--sessions-

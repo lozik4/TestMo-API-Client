@@ -8,24 +8,24 @@ ALLOWED_EXPANDS = ["automation_sources", "configs", "milestones", "statuses", "u
 
 class AutomationRuns(BoundApi):
     def get_project_automation_runs(
-            self,
-            project_id: int,
-            page: int = 1,
-            per_page: int = 100,
-            expands: Sequence[Expands] | Expands = "",
-            *,
-            order: Order = "desc",
-            sort: Literal["automation_runs:created_at"] = "automation_runs:created_at",
-            config_id: str = "",
-            created_after: DateIso = "",
-            created_before: DateIso = "",
-            created_by: str = "",
-            milestone_id: str = "",
-            source_id: str = "",
-            status: str = "",
-            tags: str = "",
+        self,
+        project_id: int,
+        page: int = 1,
+        per_page: int = 100,
+        expands: Sequence[Expands] | Expands = "",
+        *,
+        order: Order = "desc",
+        sort: Literal["automation_runs:created_at"] = "automation_runs:created_at",
+        config_id: str = "",
+        created_after: DateIso = "",
+        created_before: DateIso = "",
+        created_by: str = "",
+        milestone_id: str = "",
+        source_id: str = "",
+        status: str = "",
+        tags: str = "",
     ) -> dict:
-        """ Get automation runs by project id.
+        """Get automation runs by project id.
 
         References:
             https://support.testmo.com/hc/en-us/articles/37971158770957-Automation-Runs#1-get--projects--project-id--automation-runs-

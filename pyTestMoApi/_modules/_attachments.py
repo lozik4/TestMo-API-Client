@@ -7,18 +7,17 @@ ALLOWED_EXPANDS = ["users"]
 
 
 class Attachments(BoundApi):
-
     def get_case_attachments(
-            self,
-            case_id: int,
-            page: int = 1,
-            per_page: int = 100,
-            expands: Sequence[Expands] | Expands = "",
-            *,
-            order: Order = "desc",
-            created_by: str = "",
+        self,
+        case_id: int,
+        page: int = 1,
+        per_page: int = 100,
+        expands: Sequence[Expands] | Expands = "",
+        *,
+        order: Order = "desc",
+        created_by: str = "",
     ) -> dict:
-        """ Get case attachments
+        """Get case attachments
 
         References:
             https://support.testmo.com/hc/en-us/articles/40045804558093-Attachments#1--get--cases--case-id--attachments-
