@@ -31,9 +31,9 @@ Issues = "https://github.com/lozik4/TestMo-API-Client/issues"
 # Install with: uv sync --group dev
 dev = [
     "pytest==9.1.1",
-    "ruff==0.15.22",
-    "twine==6.2.0",
-    "ty==0.0.60"
+    "ruff==0.16.1",
+    "twine==7.0.0",
+    "ty==0.0.69"
 ]
 
 [tool.ruff]
@@ -52,6 +52,11 @@ exclude = [
     "env",
     "venv",
     "*.md"
+]
+
+[tool.ty.src]
+exclude = [
+    "tests",
 ]
 
 [tool.ruff.lint.mccabe]
