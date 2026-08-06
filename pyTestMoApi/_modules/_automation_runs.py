@@ -5,6 +5,11 @@ from .._utils import BoundApi, DateIso, Order, Pagination, build_date, build_exp
 Expands = Literal["automation_sources", "configs", "milestones", "statuses", "users"]
 ALLOWED_EXPANDS = ["automation_sources", "configs", "milestones", "statuses", "users"]
 
+# The run-tests endpoint uses its own per_page range (100-1000), unlike the standard
+# Pagination helper which only accepts 15, 25, 50, 100.
+MIN_RUN_TESTS_PER_PAGE = 100
+MAX_RUN_TESTS_PER_PAGE = 1000
+
 
 class AutomationRuns(BoundApi):
     def get_project_automation_runs(
@@ -108,5 +113,72 @@ class AutomationRuns(BoundApi):
         """
         url = f"/automation/runs/{automation_run_id}" + build_expands(expands, ALLOWED_EXPANDS, ampersand=False)
         return self._api.get(url).json()
+
+    def get_automation_run_tests(
+        self,
+        run_id: int,
+        page: int = 1,
+        per_page: int = 100,
+        *,
+        order: Order = "desc",
+        sort: Literal[
+            "automation_run_tests:id",
+            "automation_run_tests:name",
+            "automation_run_tests:status",
+            "automation_run_tests:elapsed",
+            "automation_run_tests:created_at",
+        ] = "automation_run_tests:id",
+        thread_id: int | None = None,
+        status_id: str = "",
+    ) -> dict:
+        """Get the test results of an automation run by run id.
+
+        Each result includes the ``repository_case_id`` of the linked repository test case if the
+        automation case has been linked to one, or ``null`` otherwise.
+
+        References:
+            https://support.testmo.com/hc/en-us/articles/37971158770957-Automation-Runs#get-run-tests
+
+        :param run_id: ID of the automation run.
+        :param page: Number of page to return (default: first page)
+        :param per_page: Maximum number of test results to return per page (supported range: 100-1000; default: 100)
+        :param order: Sort order (ascending or descending) (supported: asc, desc; default: desc)
+        :param sort: Sort field for the list of test results (supported: automation_run_tests:id,
+                        automation_run_tests:name, automation_run_tests:status, automation_run_tests:elapsed,
+                        automation_run_tests:created_at; default: automation_run_tests:id)
+        :param thread_id: Filter results to a single automation run thread by thread ID.
+        :param status_id: Comma-separated list of status IDs to filter by. Use: 1 for neutral, 2 for success,
+                        3 for failure, 4 for running.
+        :return: Returns all test results for an automation run.
+        :raises ValueError: If per_page is outside the supported 100-1000 range.
+
+        Example:
+            Get latest 100 test results for automation run with ID 1
+            GET /api/v1/automation/runs/1/tests
+
+            Filter test results to a single thread
+            GET /api/v1/automation/runs/1/tests?thread_id=5
+
+            Get failing test results only
+            GET /api/v1/automation/runs/1/tests?status_id=3
+
+            Sort by elapsed time descending (slowest tests first)
+            GET /api/v1/automation/runs/1/tests?sort=automation_run_tests:elapsed&order=desc
+
+            Paginate through a large run
+            GET /api/v1/automation/runs/1/tests?page=2&per_page=500
+        """
+        url = Pagination(
+            page=page,
+            per_page=per_page,
+            per_page_range=(MIN_RUN_TESTS_PER_PAGE, MAX_RUN_TESTS_PER_PAGE),
+        ).set_paginator(f"/automation/runs/{run_id}/tests")
+        params = {
+            "order": order,
+            "sort": sort,
+            "thread_id": thread_id,
+            "status_id": status_id,
+        }
+        return self._api.get(url + build_filters(params)).json()
 
     # TODO POST methods

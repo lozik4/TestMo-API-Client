@@ -69,10 +69,22 @@ class Pagination:
     next: Optional[str] = None
     last: Optional[str] = None
     per_page: Optional[int] = 100
+    per_page_range: Optional[tuple[int, int]] = None
 
     def __post_init__(self):
-        """Validate per_page value after initialization."""
-        if self.per_page is not None and self.per_page not in [15, 25, 50, 100]:
+        """Validate per_page value after initialization.
+
+        By default per_page must be one of the standard choices (15, 25, 50, 100). Endpoints that
+        accept a different range (e.g. automation run tests: 100-1000) can pass ``per_page_range``
+        as an inclusive ``(min, max)`` tuple to validate against that range instead.
+        """
+        if self.per_page is None:
+            return
+        if self.per_page_range is not None:
+            low, high = self.per_page_range
+            if not low <= self.per_page <= high:
+                raise ValueError(f"per_page must be between {low} and {high}. Got: {self.per_page}")
+        elif self.per_page not in [15, 25, 50, 100]:
             raise ValueError(f"per_page must be one of: 15, 25, 50, 100. Got: {self.per_page}")
 
     @classmethod

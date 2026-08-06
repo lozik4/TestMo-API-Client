@@ -26,7 +26,10 @@ class ErrorHandling:
 
     def _extract_extra_details(self) -> str:
         """Try to extract extra diagnostic info from the response (if provided)."""
-        if not self.response:
+        # NB: use `is None` — a requests.Response is falsy for error status codes
+        # (bool(Response) == Response.ok), so `if not self.response` would wrongly
+        # skip the body for exactly the error responses we want details from.
+        if self.response is None:
             return ""
 
         # Retry-After hint for rate limiting

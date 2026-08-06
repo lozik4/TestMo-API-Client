@@ -5,6 +5,12 @@ from .._utils import BoundApi, DateIso, Order, Pagination, build_date, build_exp
 Expands = Literal["automation_links", "comments", "folders", "history", "users", "tags", "templates"]
 ALLOWED_EXPANDS = ["automation_links", "comments", "folders", "history", "users", "tags", "templates"]
 
+# The case-names lookup endpoint is not published in the official API docs yet; its per_page
+# limits are unofficial. These bounds are wide enough for the documented example (per_page=250)
+# and should be tightened once the endpoint is officially documented.
+MIN_CASE_NAMES_PER_PAGE = 1
+MAX_CASE_NAMES_PER_PAGE = 1000
+
 
 class Cases(BoundApi):
     def get_project_cases(
@@ -89,3 +95,40 @@ class Cases(BoundApi):
         }
         filters = build_filters(params)
         return self._api.get(url + filters).json()
+
+    def get_project_case_names(self, project_id: int, page: int = 1, per_page: int = 100) -> dict:
+        """Look up repository case names for matching.
+
+        Returns a lightweight, paginated list of repository case names for the project. This is the
+        endpoint used by the Testmo automation linking tool to fetch all case names and match test
+        names against them.
+
+        Note:
+            This endpoint is not yet published in the official TestMo API docs, so its parameters
+            and per_page limits are unofficial (the ``per_page_range`` used here is a safe wide
+            range around the documented ``per_page=250`` example). Update this method once the
+            dedicated docs are released.
+
+        References:
+            https://support.testmo.com/hc/en-us/articles/40051160964749-Cases
+
+        :param project_id: ID of the project.
+        :param page: Number of page to return (default: first page)
+        :param per_page: Maximum number of case names to return per page
+                            (supported range: 1-1000; default: 100)
+        :return: Returns a paginated list of repository case names for the project.
+        :raises ValueError: If per_page is outside the supported 1-1000 range.
+
+        Example:
+            Get the first page of case names
+            GET /api/v1/projects/1/cases/names?page=1&per_page=100
+
+            Fetch a large page of case names for matching
+            GET /api/v1/projects/1/cases/names?page=1&per_page=250
+        """
+        url = Pagination(
+            page=page,
+            per_page=per_page,
+            per_page_range=(MIN_CASE_NAMES_PER_PAGE, MAX_CASE_NAMES_PER_PAGE),
+        ).set_paginator(f"/projects/{project_id}/cases/names")
+        return self._api.get(url).json()

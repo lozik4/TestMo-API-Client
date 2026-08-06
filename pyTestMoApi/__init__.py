@@ -1,6 +1,7 @@
 from ._modules import (
     Attachments,
     AutomationCases,
+    AutomationLinks,
     AutomationRuns,
     AutomationSource,
     Cases,
@@ -32,6 +33,7 @@ class TestMoClient:
         "_automation_runs",
         "_automation_sources",
         "_automation_cases",
+        "_automation_links",
         "_users",
         "_projects",
         "_groups",
@@ -65,6 +67,7 @@ class TestMoClient:
         self._automation_runs = AutomationRuns(self._client)
         self._automation_sources = AutomationSource(self._client)
         self._automation_cases = AutomationCases(self._client)
+        self._automation_links = AutomationLinks(self._client)
         self._sessions = Sessions(self._client)
         self._cases = Cases(self._client)
         self._folders = Folders(self._client)
@@ -119,6 +122,11 @@ class TestMoClient:
     def automation_cases(self) -> AutomationCases:
         """Get the AutomationCases API module."""
         return self._automation_cases
+
+    @property
+    def automation_links(self) -> AutomationLinks:
+        """Get the AutomationLinks API module."""
+        return self._automation_links
 
     @property
     def sessions(self) -> Sessions:

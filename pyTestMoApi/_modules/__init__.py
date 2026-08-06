@@ -1,5 +1,6 @@
 from ._attachments import Attachments
 from ._automation_cases import AutomationCases
+from ._automation_links import AutomationLinks
 from ._automation_runs import AutomationRuns
 from ._automation_sources import AutomationSource
 from ._cases import Cases
@@ -20,6 +21,7 @@ __all__ = [
     "AutomationRuns",
     "AutomationSource",
     "AutomationCases",
+    "AutomationLinks",
     "Groups",
     "Milestones",
     "Results",
