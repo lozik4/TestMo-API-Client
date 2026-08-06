@@ -11,6 +11,9 @@ name: Upload Python Package
 on:
   release:
     types: [published]
+  # Allows publishing manually from the Actions tab (e.g. re-running a failed
+  # release upload) without having to create another GitHub Release.
+  workflow_dispatch:
 
 permissions:
   contents: read
